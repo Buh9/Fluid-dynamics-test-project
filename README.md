@@ -16,6 +16,7 @@ git clone https://github.com/Buh9/Fluid-dynamic-stupid-thing.git
 ```bash
 make clean install
 ```
+**(TODO: create a makefile)**
 
 **PREREQUISITES**
 
