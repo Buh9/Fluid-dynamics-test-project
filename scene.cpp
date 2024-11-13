@@ -46,7 +46,7 @@ void scene::display(int sphereamnt) {
 void scene::update() {
 	physics P;
 	P.setSphere(s);
-	P.calculate(dt);
+	P.Step(dt);
 	
 	glutPostRedisplay();
 }
