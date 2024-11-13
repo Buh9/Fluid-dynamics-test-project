@@ -1,5 +1,6 @@
 #include <iostream>
 #include <GL/glut.h>
+#include "scene.hpp"
 
 using namespace std;
 
@@ -13,17 +14,17 @@ int main(int argc, char** argv) {
 
 	glutInitWindowSize(WIDTH,HEIGHT);
 
-	glutInitWindowPosition(0,0);
+	glutInitWindowPosition(20,30);
 
 	glutCreateWindow("Volume Test");
-	
+
 	/*TODO: Get a glut stuff working properly*/
 	
-	glutDisplayFunc(); 	// Scene displaying function
-	glutIdleFunc(); 	// This updates the scene for it repeats
-	glutReshapeFunc(); 	// For window resizing
-	glutKeyboardFunc(); 	// For keyboard input
-	glutSpecialFunc(); 	// For special keys?
+	glutDisplayFunc(scene.initGL()); 	// Scene displaying function
+	glutIdleFunc(scene.update()); 	// This updates the scene for it repeats
+	// glutReshapeFunc(); 	 For window resizing
+	// glutKeyboardFunc(); 	 For keyboard input
+	// glutSpecialFunc(); 	// For special keys?
 	
 	// Enters the main loop and processing events
 	glutMainLoop();

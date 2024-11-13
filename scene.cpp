@@ -6,6 +6,7 @@
 #include "physics.hpp"
 #include "scene.hpp"
 void scene::initGL() {
+	time = 0.0;
 	glClearColor(0.0f,0.0f,0.0f,1.0f);
 	glShadeModel(GL_SMOOTH); 
 
@@ -28,20 +29,30 @@ void scene::display(int sphereamnt) {
 
 	/*TODO: get cmaera stuff working soon*/
 	
+	gluLookAt(65.0f, 10.5f, 30.0f, 400, 400, 400, 0, 1, 0);
+
+	GLfloat = matAmbient[] = {1.0f,1.0f,1.0f,1.0f};
+	GLfloat = matDiffuse[] = {1.0f,1.0f,1.0f,1.0f};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, matAmbient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matDiffuse);
 	
 	for(int i = 0; i < sphereamnt; i++) {
 		s.at(i).draw();
 	}
-	
+		
 	glutSwapBuffers();
 }
 
-void scene::update(double dt) {
+void scene::update() {
 	physics P;
 	P.setSphere(s);
-	P.calculate;
-
+	P.calculate(dt);
+	
 	glutPostRedisplay();
 }
 
+void scene::timer() {
+	dt = static_cast<float>(glutGet(GLUT_ELAPSE_TIME) - time);
+	time = static_cast<float>(glutGet(GL_ELAPSE_TIME) + time);
+}
 

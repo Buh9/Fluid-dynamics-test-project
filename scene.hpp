@@ -11,11 +11,13 @@
 class scene {
 	private:
 	vector<sphere> s;
+	float dt;
+	float time;
 	public:
 	void initGL();
 	void display(int);
 	void update(double);
-	static double timer();
+	void timer();
 };
 
 
