@@ -8,7 +8,12 @@ using namespace std;
 void sphere::draw() {
 	glPushMatrix();
 	// After physics get calculated move the object to its current position
-	glTranslatef(X,Y,Z);
+	
+	float x = static_cast<float>(X);
+	float y = static_cast<float>(Y);
+	float z = static_cast<float>(Z);
+
+	glTranslatef(x,y,z);
 
 	// Sets color of ball
 	glColor3f(1.0f, 0.0f, 1.0f);

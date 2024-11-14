@@ -6,7 +6,6 @@
 #include <GL/glut.h>
 #include "camera.hpp"
 #include "sphere.hpp"
-#include "physics.hpp"
 
 class scene {
 	private:
@@ -16,7 +15,7 @@ class scene {
 	public:
 	void initGL();
 	void display(int);
-	void update(double);
+	void update();
 	void timer();
 };
 
@@ -25,4 +24,4 @@ class scene {
 
 
 
-#endif SCENE_H_
+#endif // SCENE_H_

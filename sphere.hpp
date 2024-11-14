@@ -14,16 +14,18 @@ class sphere{
 	vector <double> force;
 	double mass;
 	double fluidDensity;
+	double Pressure;
 	public:
 	sphere() {
 	X = 0.0;
 	Y = 0.0;
 	Z = 0.0;
-	force = {0.0,0.0,0.0}
+	force = {0.0,0.0,0.0};
 	velocity = {0.0, 0.0, 0.0};
-	radius = 1.0;
+	radius = 0.01;
 	mass = 1.0;
 	fluidDensity = 0.0;
+	Pressure = 0;
 	}
 	
 	sphere(double xcoord, double ycoord, double zcoord, double r) {
@@ -34,7 +36,9 @@ class sphere{
 		velocity = {0.0, 0.0, 0.0};
 		force = {0.0,0.0,0.0};
 		mass = 1.0;
+		Pressure = 0;
 	}
+
 	sphere(double xcoord, double ycoord, double zcoord, double r, double m) {
 		X = xcoord;
 		Y = ycoord;
@@ -43,6 +47,18 @@ class sphere{
 		velocity = {0.0, 0.0, 0.0};
 		force = {0.0,0.0,0.0};
 		mass = m;
+	}
+	
+	sphere (const sphere &obj) {
+		X = obj.X;
+		Y = obj.Y;
+		Z = obj.Z;
+		force = obj.force;
+		velocity = obj.velocity;
+		radius = obj.radius;
+		mass = obj.mass;
+		fluidDensity = obj.fluidDensity;
+		Pressure = obj.Pressure;
 	}
 
 
@@ -71,7 +87,7 @@ class sphere{
 		}
 	}
 	vector <double> getPosition() {
-		vector <double> Pos = {X, Y, Z};
+		vector <double>Pos = {X, Y, Z};
 		return Pos;
 	}
 	vector <double> getVelocity() {
@@ -80,6 +96,10 @@ class sphere{
 	vector <double> getForce() {
 		return force;
 	}
+	double getRadius() {
+		return radius;
+	}
+
 	double getMass() {
 		return mass;
 	}
@@ -88,13 +108,26 @@ class sphere{
 		Y = ycoord;
 		Z = zcoord;
 	}
+	void setPosition(vector <double> pos) {
+		X = pos.at(0);
+		Y = pos.at(1);
+		Z = pos.at(2);
+	}
+
+
 	void setDensity(double d) {
 		fluidDensity = d;
 	}
 	double getDensity() {
 		return fluidDensity;
 	}
+	void setPressure(double P) {
+		Pressure = P;
+	}
+	double getPressure() {
+		return Pressure;
+	}
 };
 
 
-#endif SPHERE_H_
+#endif //SPHERE_H_
