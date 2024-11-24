@@ -3,7 +3,7 @@
 This is a fluid dynamics program using SPH(Smoothed Particle Hydrodynamics) created using glut/opengl 3d, it is very broken and very basic at it's current state but objects move in this version though I will probably need to tighten up the physics this version though only shows us the objects moving at a certain velocity. 
 
 ## How to run it
-I am too lazy to run this on other operating systems(plus Apple has removed all openGL support), you will need some version of linux(possibly you can use WSL?) and have installed all the prerequsites. 
+I am too lazy to run this on other operating systems(plus Apple has Depricated OpenGL for newer vesions of MacOS), you will need some version of linux(possibly you can use WSL?) and have installed all the prerequsites. 
 
 **First:** clone the repository
 
