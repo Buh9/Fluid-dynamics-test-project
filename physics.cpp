@@ -223,15 +223,15 @@ for(int i = 0; i < s->size(); i++) {
 		
 		vector <double> pos = {0.0,0.0,0.0};
 		vector <double> pos2 = s->at(i).getPosition();
-		/*
-		 * still more testing 
+		
 		vector <double> velo = s->at(i).getVelocity();
-		*/
+		
+		/* this is the test velocity to show that the objects can move at a certain velocity
 		vector <double> velo = {0.000001, 0.000001, 0.0};
 		for(int j = 0; j < 3; j++) {
 			pos.at(j) = pos2.at(j) + dt * velo.at(j);
 		}
-
+		*/
 		s->at(i).setPosition(pos);
 	
 	}
