@@ -13,9 +13,10 @@ class scene {
 	float dt;
 	float time;
 	public:
-	void initGL();
+	void sphereinit(int);
+	void initGL(int);
 	void display(int);
-	void update();
+	void update(int);
 	void timer();
 };
 

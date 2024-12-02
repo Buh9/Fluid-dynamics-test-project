@@ -1,5 +1,5 @@
 # Fluid Dynamics
-**VERSION 0.0.4:**
+**VERSION 0.0.6:**
 This is a fluid dynamics program using SPH(Smoothed Particle Hydrodynamics) created using glut/opengl 3d, it is very broken and very basic at it's current state but objects move in this version though I will probably need to tighten up the physics this version though only shows us the objects moving at a certain velocity. 
 
 ## How to run it

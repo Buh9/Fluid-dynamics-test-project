@@ -6,8 +6,8 @@
 #include "sphere.hpp"
 
 #define PI 3.1415926535
-#define targetDensity 1.0
-#define pressureMultiplier 2.0
+#define targetDensity 400.0
+#define pressureMultiplier 200.0
 #define dampening 0.95
 
 using namespace std;
@@ -184,34 +184,28 @@ void physics::Step(double dt) {
 	// TODO: make this algorithm less than O(n^2)
 	// Get density and density stuff
 	for(int i = 0; i < s->size(); i++) {
-		CalcDensity(i, *s);
+		s->at(i).setDensity(CalcDensity(i, *s));
 	}
 
 	// Right Now I am going to test if the objects even move;
 
-	/* This is actual SPH code 
-
-
 	for(int j = 0; j < s->size(); j++) {
 	
 	vector <double> force2 = ForceOfWater(j, *s);
-
-	vector <double> total_force = {force2.at(0) + grav.at(0), force2.at(1) + grav.at(1), force2.at(2) + grav.at(2)};
+	vector <double> prev_force = s->at(j).getForce();
+	vector <double> total_force = {force2.at(0) + prev_force.at(0), force2.at(1) + prev_force.at(1), force2.at(2) + prev_force.at(2)};
 	
-	s->at(j).setForce(grav);
+	s->at(j).setForce(total_force);
 }
-	//Now we have forces now we can calculate the accelerations and velocities
-	
-
-	*/
-
 
 for(int i = 0; i < s->size(); i++) {
 	
 	vector <double> velo = {0.0,0.0,0.0};
-	
+	vector <double> curr_velo = s->at(i).getVelocity();
+	vector <double> curr_force = s->at(i).getForce(); 
+
 	for(int j = 0; j < 3; j++) {
-		velo.at(j) = s->at(i).getVelocity().at(j) + dt * s->at(i).getForce().at(j);
+		velo.at(j) = curr_velo.at(j) * dt + curr_force.at(j);
 		}
 	s->at(i).setVelocity(velo);
 	}
@@ -221,18 +215,21 @@ for(int i = 0; i < s->size(); i++) {
 	
 	for(int i = 0; i < s->size(); i++) {
 		
-		vector <double> pos = {0.0,0.0,0.0};
 		vector <double> pos2 = s->at(i).getPosition();
 		
 		vector <double> velo = s->at(i).getVelocity();
-		
-		/* this is the test velocity to show that the objects can move at a certain velocity
-		vector <double> velo = {0.000001, 0.000001, 0.0};
-		for(int j = 0; j < 3; j++) {
-			pos.at(j) = pos2.at(j) + dt * velo.at(j);
-		}
-		*/
-		s->at(i).setPosition(pos);
+		vector <double> NewPos = {pos2.at(0) + dt * velo.at(0), pos2.at(1) + dt * velo.at(1), pos2.at(2) + dt * velo.at(2)};
+		s->at(i).setPosition(NewPos.at(0),NewPos.at(1),NewPos.at(2));
+	}
 	
+	cout << "Debug: spheres" << endl;
+	cout << "dt: " << dt << endl;
+	for(int i = 0; i < s->size(); i++) {
+		vector <double> OurSphereForce = s->at(i).getForce();
+		vector <double> OurSphereVelo = s->at(i).getVelocity();
+		vector <double> OurSpherePos = s->at(i).getPosition();
+		cout << "Force: (" << OurSphereForce.at(0) << "," << OurSphereForce.at(1) << "," << OurSphereForce.at(2) << ")" << endl;
+		cout << "Velocity: (" << OurSphereVelo.at(0) << "," << OurSphereVelo.at(1) << "," << OurSphereVelo.at(2) << ")" << endl;
+		cout << "Position: (" << OurSpherePos.at(0) << "," << OurSpherePos.at(1) << "," << OurSpherePos.at(2) << ")" << endl;
 	}
 }

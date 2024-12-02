@@ -12,6 +12,8 @@ void sphere::draw() {
 	float x = static_cast<float>(X);
 	float y = static_cast<float>(Y);
 	float z = static_cast<float>(Z);
+	
+	//cout << "Pos: (" << x << "," << y << "," << z << ")" << endl;
 
 	glTranslatef(x,y,z);
 
