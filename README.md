@@ -27,8 +27,7 @@ make install
 
 **Resources**
 
-Matthias Müller, David Charypar and Markus Gross,![*Particle-Based Fluid Simulation for Interactive Applications*](https://matthias-research.github.io/pages/publications/sca03.pdf),Department of Computer Science, Federal Institute of Technology Zürich (ETHZ), Switzerland, 2003
-
+Matthias Müller, David Charypar and Markus Gross,*Particle-Based Fluid Simulation for Interactive Applications*,Department of Computer Science, Federal Institute of Technology Zürich (ETHZ), Switzerland, 2003 ![link](https://matthias-research.github.io/pages/publications/sca03.pdf)
 ![]()
 
 ![]()
