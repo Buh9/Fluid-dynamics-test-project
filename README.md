@@ -17,7 +17,7 @@ git clone https://github.com/Buh9/Fluid-dynamic-stupid-thing.git
 make install
 ```
 
-**PREREQUISITES**
+## PREREQUISITES
 
 ![gcc/g++](git://gcc.gnu.org/git/gcc.git)
 
@@ -25,7 +25,7 @@ make install
 
 ![OpenGL](https://github.com/KhronosGroup/OpenGL-Registry.git)
 
-**Resources**
+## Resources
 
 Matthias Müller, David Charypar and Markus Gross,*Particle-Based Fluid Simulation for Interactive Applications*,Department of Computer Science, Federal Institute of Technology Zürich (ETHZ), Switzerland, 2003 ![link](https://matthias-research.github.io/pages/publications/sca03.pdf)
 
