@@ -20,7 +20,7 @@ void scene::sphereinit(int sphereamnt) {
 		}
 		
 		for(int k = 0; k < sphereamnt; k++) {
-			s.at(k).setPosition( -0.15 + 0.05 * k, -0.15 + 0.05 * k, -0.15 + 0.05 * k);
+			s.at(k).setPosition( -0.3 + 0.05 * (k / 2), -0.3 + 0.05 * (k % 2), 0);
 		}
 }
 
@@ -74,7 +74,7 @@ void scene::update(int sphereamnt) {
 	physics P;
 	P.SetSphere(s);
 	P.Step(dt);
-	//P.Collision();	
+	P.Collision(dt);	
 
 		
 	for(int i = 0; i < sphereamnt; i++) {

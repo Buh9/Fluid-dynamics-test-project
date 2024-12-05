@@ -6,22 +6,27 @@
 
 using namespace std;
 
+unsigned int sphereamnt = 0;
+
 unsigned int WIDTH = 800;
 unsigned int HEIGHT = 600;
 scene sc;
 
 void displayCall() {
-	sc.display(10);
+	sc.display(sphereamnt);
 }
 
 void updateCall() {
-	sc.update(10);
+	sc.update(sphereamnt);
 	sc.timer();
 }
 
 
 int main(int argc, char** argv) {
 	
+	cout << "Sphere Ammount: " << endl;
+	cin >> sphereamnt;
+
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
@@ -33,9 +38,9 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Volume Test");
 
 	/*TODO: Get a glut stuff working properly*/
-	sc.sphereinit(10);	
+	sc.sphereinit(sphereamnt);	
 
-	sc.initGL(10);
+	sc.initGL(sphereamnt);
 	sc.timer();
 	glutDisplayFunc(displayCall); 	// Scene displaying function
 	glutIdleFunc(updateCall); 	// This updates the scene for it repeats

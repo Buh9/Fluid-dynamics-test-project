@@ -11,7 +11,7 @@ class sphere{
 	double X,Y,Z;
 	double radius;
 	vector <double> velocity;
-	vector <double> force;
+	vector<double> force;
 	double mass;
 	double fluidDensity;
 	double Pressure;

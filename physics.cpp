@@ -90,14 +90,18 @@ void ConvertDensityToPressure(int sphereWeWant, vector <sphere> &s) {
 }
 
 
-void SphereByBounderies(sphere &s1, double xmin, double xmax, double ymin, double ymax, double zmin, double zmax) {
+void SphereByBounderies(sphere &s1, double xmin, double xmax, double ymin, double ymax, double zmin, double zmax,double dt) {
 	vector <double>S1 = s1.getPosition();	
+	vector <double>S1_force = s1.getForce();
 	double S1radius = s1.getRadius();
 	if(S1.at(0) - S1radius < xmin) {
 		s1.setPosition(xmin + S1radius, S1.at(1), S1.at(2));
 		vector <double> velo = s1.getVelocity();
 		velo = {-1 * velo.at(0) * dampening, velo.at(1), velo.at(2) };
 		s1.setVelocity(velo);
+		double normal = -((1 + dampening) * velo.at(0))/dt;
+		vector<double> normal_force = { normal , S1_force.at(1) , S1_force.at(2) };
+		s1.setForce(normal_force);
 	}
 	
 	if(S1.at(0) - S1radius > xmax) {
@@ -105,28 +109,39 @@ void SphereByBounderies(sphere &s1, double xmin, double xmax, double ymin, doubl
                 vector <double> velo = s1.getVelocity();
                 velo = {-1 * velo.at(0) * dampening, velo.at(1), velo.at(2) };
         	s1.setVelocity(velo);
-	}
+		double normal = -((1 + dampening) * velo.at(0))/dt;
+		vector<double> normal_force = { normal , S1_force.at(1) , S1_force.at(2) };
+		s1.setForce(normal_force);
+		}
 	
 	if(S1.at(0) - S1radius < ymin) {
 		s1.setPosition(S1.at(0), ymin + S1radius, S1.at(2));
                 vector <double> velo = s1.getVelocity();
                 velo = {velo.at(0), -1 * velo.at(1) * dampening, velo.at(2) };
 		s1.setVelocity(velo);
-	}
+		double normal = -((1 + dampening) * velo.at(1))/dt;
+		vector<double> normal_force = {S1_force.at(0), normal , S1_force.at(2) };
+		s1.setForce(normal_force);
+		}
 		
 	if(S1.at(0) - S1radius > ymax) {
 		s1.setPosition(S1.at(0), ymax - S1radius, S1.at(2));
                 vector <double> velo = s1.getVelocity();
                 velo = {velo.at(0), -1 * velo.at(1) * dampening, velo.at(2) };
 		s1.setVelocity(velo);
+		double normal = -((1 + dampening) * velo.at(1))/dt;
+		vector<double> normal_force = {S1_force.at(0), normal , S1_force.at(2) };
+		s1.setForce(normal_force);
 	}
-	
 	
 	if(S1.at(0) - S1radius < zmin) {
 		s1.setPosition(S1.at(0), S1.at(1), zmin + S1radius);
                 vector <double> velo = s1.getVelocity();
                 velo = {velo.at(0), velo.at(1), -1 * velo.at(2) *dampening };
 		s1.setVelocity(velo);
+		double normal = -((1 + dampening) * velo.at(2))/dt;
+		vector<double> normal_force = {S1_force.at(0),S1_force.at(1), normal };
+		s1.setForce(normal_force);
 	}
 
 	
@@ -135,6 +150,9 @@ void SphereByBounderies(sphere &s1, double xmin, double xmax, double ymin, doubl
                 vector <double> velo = s1.getVelocity();
                 velo = {velo.at(0), velo.at(1), -1 * velo.at(2) *dampening };
 		s1.setVelocity(velo);
+		double normal = -((1 + dampening) * velo.at(2))/dt;
+		vector<double> normal_force = {S1_force.at(0),S1_force.at(1), normal };
+		s1.setForce(normal_force);
 	}
 
 }
@@ -162,9 +180,9 @@ return force;
 
 // TODO: I might need to use a hash table algorithm to get this faster but im too lazy
 
-void physics::Collision() {
+void physics::Collision(double dt) {
 	for(int i = 0; i < s->size(); i++) {
-	SphereByBounderies(s->at(i),-500,500,-500,500,-1000,1000);
+	SphereByBounderies(s->at(i),-500,500,-500,500,-1000,1000,dt);
 	}
 	for(int i = 0; i < s->size(); i++) {
 		for(int j = 0; j < s->size(); j++) {
@@ -178,8 +196,8 @@ void physics::Collision() {
 void physics::Step(double dt) {
 	
 	double smoothingRad = 1.0;
-	// vector <double> grav = {0.0,0.0,9.81};
-	
+	//TODO: create gravity force to react to different masses but since every object rn is 1.0 it works
+	double grav = 9.81;
 	// The first thing we do is apply gravity to all the particles
 	// TODO: make this algorithm less than O(n^2)
 	// Get density and density stuff
@@ -193,7 +211,7 @@ void physics::Step(double dt) {
 	
 	vector <double> force2 = ForceOfWater(j, *s);
 	vector <double> prev_force = s->at(j).getForce();
-	vector <double> total_force = {force2.at(0) + prev_force.at(0), force2.at(1) + prev_force.at(1), force2.at(2) + prev_force.at(2)};
+	vector <double> total_force = {force2.at(0) + prev_force.at(0), force2.at(1) + prev_force.at(1), force2.at(2) + prev_force.at(2) };
 	
 	s->at(j).setForce(total_force);
 }

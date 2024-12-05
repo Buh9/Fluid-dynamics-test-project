@@ -25,7 +25,7 @@ class physics{
 	delete s;
 	}
 	*/
-	void Collision();
+	void Collision(double);
 	void Step(double dt);
 };
 
