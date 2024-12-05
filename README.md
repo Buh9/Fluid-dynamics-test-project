@@ -28,11 +28,16 @@ make install
 **Resources**
 
 Matthias Müller, David Charypar and Markus Gross,*Particle-Based Fluid Simulation for Interactive Applications*,Department of Computer Science, Federal Institute of Technology Zürich (ETHZ), Switzerland, 2003 ![link](https://matthias-research.github.io/pages/publications/sca03.pdf)
-![]()
 
-![]()
+Githubs that helped me:
 
-![]()
+![Bouncing balls simulation](https://github.com/AndreeaDraghici/Bouncing-Balls-3D)
+
+![SPH Fluid Simulator](https://github.com/lijenicol/SPH-Fluid-Simulator)
+
+video that inspired me:
+
+![Coding Adventure: Simulating Fluids](https://www.youtube.com/watch?v=rSKMYc1CQHE&t=1687s)
 
 ## LICENSE
 
