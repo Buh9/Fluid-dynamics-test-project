@@ -29,7 +29,7 @@ make install
 
 Matthias Müller, David Charypar and Markus Gross,*Particle-Based Fluid Simulation for Interactive Applications*,Department of Computer Science, Federal Institute of Technology Zürich (ETHZ), Switzerland, 2003 ![link](https://matthias-research.github.io/pages/publications/sca03.pdf)
 
-Githubs that helped me:
+Projects that helped me:
 
 ![Bouncing balls simulation](https://github.com/AndreeaDraghici/Bouncing-Balls-3D)
 
