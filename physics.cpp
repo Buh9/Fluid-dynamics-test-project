@@ -32,22 +32,19 @@ return depth;
 
 }
 
-double Dist(sphere &s1, sphere &s2) {
+vector <double> Dist(sphere &s1, sphere &s2) {
          vector <double> S1 = s1.getPosition();
          vector <double> S2 = s2.getPosition();
          double S1radius = s1.getRadius();
          double S2radius = s2.getRadius();
 
-         vector <double> norm;
-
-	 double dist = sqrt( (S1.at(0) - S2.at(0)) * (S1.at(0) - S2.at(0)) + (S1.at(1) - S2.at(1)) * (S1.at(1) - S2.at(1)) + (S1.at(2) - S2.at(2)) * (S1.at(2) - S2.at(2)) );   
-		 double num = dist - S1radius - S2radius;
- 	return num;
+	 vector <double> dist = {(S2.at(0) - S1.at(0)) , (S2.at(1) - S2.at(1)) , (S2.at(2) - S1.at(2))}   
+ 	return dist;
 }
 
 double SmoothingKernal(double h, double dist) {
 	if(dist < h) {
-		return (10.0 / (PI * pow(h,3) * pow((1.0 - dist / h),3)));
+		return (10.0 / (PI * pow(h,6) * pow((1.0 - dist / h),3)));
 	}
 	else {
 	return 0.0;
@@ -55,9 +52,9 @@ double SmoothingKernal(double h, double dist) {
 }
 
 vector<double> grad_SmoothingKernal(const vector<double> &radius,double h) {
-	double d = radius.at(1);
-	if(d < h) {
-		double factor = (-30.0 / (PI * pow(h,4) * pow((1.0 - d / h),2)));
+	double d = sqrt( pow(radius.at(0),2) + pow(radius.at(1),2) + pow(radius.at(2),2) );
+	if(d <= h) {
+		double factor = (-45.0 / (PI * pow(h,6) * pow((1.0 - d / h),2)));
 		vector<double> res = { factor * radius.at(0) / d, factor * radius.at(1) / d, factor * radius.at(2) / d };
 		return res;
 	}
@@ -65,6 +62,19 @@ vector<double> grad_SmoothingKernal(const vector<double> &radius,double h) {
 	vector<double> res = {0.0,0.0,0.0};
 	return res;	
 }
+}
+
+double gradsqred_SmoothingKernal(const vector<double> &radius, double h) {
+	double d = sqrt( pow(radius.at(0),2) + pow(radius.at(1), 2) + pow(radius.at(2), 2));
+	if(d <= h) {
+		double factor = (90.0 / (PI * pow(h,6))) * (h - d) * (1 - (3d/h));
+		return factor;
+
+	else {
+		double res = 0.0;
+		return res;
+	}
+
 }
 
 double CalcDensity(int sphereWeWant,vector <sphere> &s) {
@@ -160,21 +170,27 @@ void SphereByBounderies(sphere &s1, double xmin, double xmax, double ymin, doubl
 vector <double> ForceOfWater(int sphereWeWant, vector <sphere> &s) {
 	
 	vector <double>force = { 0.0,0.0,0.0 };
-	
+
 	for(int j = 0; j < s.size(); j++) {
 	if(j != sphereWeWant) {    
 	for(int i = 0; i < 3; i++) {
-		double dist = Dist(s.at(sphereWeWant),s.at(j));
+		vector <double> dist = Dist(s.at(sphereWeWant),s.at(j));
 		
-		//vector <double>grad = grad_SmoothingKernal(dist, 1); 
+		vector <double> grad = grad_SmoothingKernal(dist, 1); 
+		double gradsqred = gradsqred_SmoothingKernal(dist, 1);
 		
-		force.at(i) = (-s.at(sphereWeWant).getMass() + s.at(j).getMass() * (s.at(sphereWeWant).getPressure() + s.at(j).getPressure()) / (2*s.at(j).getDensity()));
+		vector <double> velocitydist = Dist(s.at(sphereWeWant).getVelocity(),s.at(j).getVelocity)
 
+		force.at(i) = grad.at(i) * (-s.at(sphereWeWant).getMass() + s.at(j).getMass() * (s.at(sphereWeWant).getPressure() + s.at(j).getPressure()) / (2*s.at(j).getDensity()));
+		force.at(i) += gradsqred * 0.89 * (s.at(sphereWeWant).getMass()) * (velocitydist.at(i) / s.at(sphereWeWant).getDensity); 
 		}
 
 	}
 
 }
+
+
+
 return force;
 }
 
@@ -239,7 +255,7 @@ for(int i = 0; i < s->size(); i++) {
 		vector <double> NewPos = {pos2.at(0) + dt * velo.at(0), pos2.at(1) + dt * velo.at(1), pos2.at(2) + dt * velo.at(2)};
 		s->at(i).setPosition(NewPos.at(0),NewPos.at(1),NewPos.at(2));
 	}
-	
+/*	
 	cout << "Debug: spheres" << endl;
 	cout << "dt: " << dt << endl;
 	for(int i = 0; i < s->size(); i++) {
@@ -249,5 +265,5 @@ for(int i = 0; i < s->size(); i++) {
 		cout << "Force: (" << OurSphereForce.at(0) << "," << OurSphereForce.at(1) << "," << OurSphereForce.at(2) << ")" << endl;
 		cout << "Velocity: (" << OurSphereVelo.at(0) << "," << OurSphereVelo.at(1) << "," << OurSphereVelo.at(2) << ")" << endl;
 		cout << "Position: (" << OurSpherePos.at(0) << "," << OurSpherePos.at(1) << "," << OurSpherePos.at(2) << ")" << endl;
-	}
+	}*/
 }

@@ -9,7 +9,7 @@
 // TODO: weird fix around with a global variable since glut timer sucks
 
 double took;
-
+cam camera;
 void scene::sphereinit(int sphereamnt) {
 	time = 0.0;
 	dt = 0.0001;
@@ -52,6 +52,7 @@ void scene::display(int sphereamnt) {
 	/*TODO: get cmaera stuff working soon*/
 	
 	//gluLookAt(65.0f, 10.5f, 30.0f, 200, 200, 200, 0, 1, 0);
+	//gluLookAt(camera.getXangle(), 0f, camera.getZangle(), 0, 0, 0, 0, 1, 0);
 
 	GLfloat matAmbient[] = {1.0f,1.0f,1.0f,1.0f};
 	GLfloat matDiffuse[] = {1.0f,1.0f,1.0f,1.0f};
@@ -73,9 +74,10 @@ void scene::update(int sphereamnt) {
 	auto start = chrono::high_resolution_clock::now();
 	physics P;
 	P.SetSphere(s);
+	
 	P.Step(dt);
+	
 	P.Collision(dt);	
-
 		
 	for(int i = 0; i < sphereamnt; i++) {
 		s.at(i).draw();
@@ -83,11 +85,17 @@ void scene::update(int sphereamnt) {
 
 	glutPostRedisplay();
 	auto end = chrono::high_resolution_clock::now();
-	took = chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+	took3 = chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 }
 void scene::timer() {
-	dt = took * 0.0000001;
+	dt = (took * 0.0000001);
+	
 	cout << "dt: " << dt << endl;
+	cout << "setting up physics(us): " << took1 << endl;
+	cout << "calculating physics(us): " << took2 << endl;
+	cout << "drawing screen(us): " << took3 << endl;
 	time = dt + time;	
 }
-
+void scene::cam(int x, int y) {
+	camera.update(x,y);
+}

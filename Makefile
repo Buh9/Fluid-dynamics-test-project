@@ -3,7 +3,7 @@
 
 CC = g++
 CFLAGS = -lGL -lGLU -lglut
-SRC = main.cpp scene.cpp sphere.cpp physics.cpp 
+SRC = main.cpp scene.cpp sphere.cpp physics.cpp camera.cpp
 OBJ = Test
 
 # this is a messy way of remove our test file

@@ -21,7 +21,6 @@ void updateCall() {
 	sc.timer();
 }
 
-
 int main(int argc, char** argv) {
 	
 	cout << "Sphere Ammount: " << endl;
@@ -44,6 +43,7 @@ int main(int argc, char** argv) {
 	sc.timer();
 	glutDisplayFunc(displayCall); 	// Scene displaying function
 	glutIdleFunc(updateCall); 	// This updates the scene for it repeats
+	
 	// glutReshapeFunc(); 	 For window resizing
 	// glutKeyboardFunc(); 	 For keyboard input
 	// glutSpecialFunc(); 	// For special keys?
