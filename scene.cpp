@@ -52,7 +52,7 @@ void scene::display(int sphereamnt) {
 	/*TODO: get cmaera stuff working soon*/
 	
 	//gluLookAt(65.0f, 10.5f, 30.0f, 200, 200, 200, 0, 1, 0);
-	//gluLookAt(camera.getXangle(), 0f, camera.getZangle(), 0, 0, 0, 0, 1, 0);
+	gluLookAt(camera.getXangle(), camera.getYangle(), camera.getZangle(), 0, 0, 0, 0, 1, 0);
 
 	GLfloat matAmbient[] = {1.0f,1.0f,1.0f,1.0f};
 	GLfloat matDiffuse[] = {1.0f,1.0f,1.0f,1.0f};

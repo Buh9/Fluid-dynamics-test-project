@@ -26,7 +26,7 @@ class cam {
 		return xangle;
        	}
 	float getYangle(){
-		
+		return yangle;		
 	}
 	float getZangle(){ 
 		return zangle; 
