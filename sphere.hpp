@@ -87,7 +87,7 @@ class sphere{
 		}
 	}
 	vector <double> getPosition() {
-		vector <double>Pos = {X, Y, Z};
+		vector <double> Pos = {X, Y, Z};
 		return Pos;
 	}
 	vector <double> getVelocity() {

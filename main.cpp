@@ -8,8 +8,8 @@ using namespace std;
 
 unsigned int sphereamnt = 0;
 
-unsigned int WIDTH = 800;
-unsigned int HEIGHT = 600;
+unsigned int WIDTH = 1280;
+unsigned int HEIGHT = 720;
 scene sc;
 
 void displayCall() {
@@ -19,6 +19,9 @@ void displayCall() {
 void updateCall() {
 	sc.update(sphereamnt);
 	sc.timer();
+}
+void cameraCall(int button, int state,int x, int y) {
+	sc.updatecam(x,y);
 }
 
 int main(int argc, char** argv) {
@@ -43,7 +46,7 @@ int main(int argc, char** argv) {
 	sc.timer();
 	glutDisplayFunc(displayCall); 	// Scene displaying function
 	glutIdleFunc(updateCall); 	// This updates the scene for it repeats
-	
+	glutMouseFunc(cameraCall);	
 	// glutReshapeFunc(); 	 For window resizing
 	// glutKeyboardFunc(); 	 For keyboard input
 	// glutSpecialFunc(); 	// For special keys?

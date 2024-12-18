@@ -21,7 +21,7 @@ void sphere::draw() {
 	glColor3f(1.0f, 0.0f, 1.0f);
 
 	//Draws the ball using 
-	glutSolidSphere(radius, 10, 10);
+	glutSolidSphere(radius, 20, 20);
 
 	// now we pop the matrix to show we are finished
 	glPopMatrix();

@@ -12,12 +12,14 @@ class scene {
 	vector<sphere> s;
 	float dt;
 	float time;
+	camera camera2;
 	public:
 	void sphereinit(int);
 	void initGL(int);
 	void display(int);
 	void update(int);
 	void timer();
+	void updatecam(int, int);
 };
 
 

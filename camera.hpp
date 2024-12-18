@@ -1,8 +1,11 @@
+#ifndef CAMERA_H_
+#define CAMERA_H_
+
 #include <iostream>
 #include <vector>
 #include <GL/glut.h>
 
-class cam {
+class camera {
 	private:
 	int mousex;
 	int mousey;
@@ -12,14 +15,23 @@ class cam {
 	float theta;
 	float psi;
 	public:
-	cam() {
+	camera() {
 	mousex = 0;
 	mousey = 0;
-	xangle = 0.0f;
-	yangle = 0.0f;
-	zangle = 0.0f;
-	yaw = 0.0f;
-	theta = 0.0f;
+	xangle = 0.0;
+	yangle = 0.0;
+	zangle = 0.0;
+	psi = 0.0;
+	theta = 0.0;
+	}
+	camera(double p, double t) {
+	mousex = 0;
+	mousey = 0;
+	xangle = 0.0;
+	yangle = 0.0;
+	zangle = 0.0;
+	psi = p;
+	theta = t;
 	}
 	void update(int, int);
 	float getXangle(){ 
@@ -32,3 +44,5 @@ class cam {
 		return zangle; 
 	}
 };
+
+#endif // CAMERA_H_
