@@ -178,12 +178,12 @@ vector <double> ForceOfWater(int sphereWeWant, vector <sphere> &s) {
 		vector <double> dist = Dist(s.at(sphereWeWant),s.at(j));
 		
 		vector <double> grad = grad_SmoothingKernal(dist, 100); 
-		//double gradsqred = gradsqred_SmoothingKernal(dist, 100);
+		double gradsqred = gradsqred_SmoothingKernal(dist, 100);
 		
 		vector <double> velocitydist = Dist(s.at(sphereWeWant),s.at(j));
 
 		force.at(i) = grad.at(i) * (-s.at(sphereWeWant).getMass() + s.at(j).getMass() * (s.at(sphereWeWant).getPressure() + s.at(j).getPressure()) / (2*s.at(j).getDensity()));
-		//force.at(i) += gradsqred * 0.89 * (s.at(sphereWeWant).getMass()) * (velocitydist.at(i) / s.at(sphereWeWant).getDensity()); 
+		force.at(i) += gradsqred * 0.89 * (s.at(sphereWeWant).getMass()) * (velocitydist.at(i) / s.at(sphereWeWant).getDensity()); 
 		}
 
 	}
